@@ -15,7 +15,6 @@ const aplicacoes = [
     bg: "bg-white",
     border: "border border-praia-ink/8",
     label: "text-praia-gray",
-    contorno: false,
   },
   {
     nome: "Oficial",
@@ -24,16 +23,14 @@ const aplicacoes = [
     bg: "bg-praia-black",
     border: "",
     label: "text-white/50",
-    contorno: false,
   },
   {
     nome: "Fundo amarelo",
     uso: "Versão em contorno",
-    logo: LOGO_POSITIVA,
-    bg: "bg-praia-yellow",
+    logo: "/logo-fundo-amarelo.png",
+    bg: "bg-[#FFD500]",
     border: "",
     label: "text-praia-ink/60",
-    contorno: true,
   },
 ];
 
@@ -77,34 +74,18 @@ export default function Marca() {
           </p>
         </Reveal>
 
-        {/* Versões da logo */}
         <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-3">
           {aplicacoes.map((ap, i) => (
             <Reveal key={ap.nome} delay={i}>
               <figure
                 className={`flex h-64 flex-col items-center justify-center rounded-3xl ${ap.bg} ${ap.border} shadow-[0_16px_50px_-28px_rgba(0,0,0,0.35)]`}
               >
-                <div className="relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={ap.logo}
-                    alt={`Logo Praia Clube — versão ${ap.nome}`}
-                    className="h-32 w-auto object-contain md:h-36"
-                  />
-                  {ap.contorno ? (
-                    <span
-                      className="absolute rounded-full border-2 border-praia-black"
-                      style={{
-                        width: "60.5%",
-                        aspectRatio: "1 / 1",
-                        left: "47.7%",
-                        top: "48.6%",
-                        transform: "translate(-50%, -50%)",
-                      }}
-                      aria-hidden
-                    />
-                  ) : null}
-                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={ap.logo}
+                  alt={`Logo Praia Clube — versão ${ap.nome}`}
+                  className="h-32 w-auto object-contain md:h-36"
+                />
                 <figcaption
                   className={`mt-5 text-[10px] font-semibold uppercase tracking-[0.3em] ${ap.label}`}
                 >
@@ -115,7 +96,6 @@ export default function Marca() {
           ))}
         </div>
 
-        {/* Paleta oficial */}
         <Reveal delay={1} className="mt-16">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
             {paleta.map((cor) => (
@@ -140,7 +120,6 @@ export default function Marca() {
           </div>
         </Reveal>
 
-        {/* O que nunca fazemos */}
         <Reveal delay={2} className="mt-16">
           <div className="rounded-3xl bg-praia-black p-10 text-white md:p-14">
             <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
