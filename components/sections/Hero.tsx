@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { WordReveal } from "@/components/ui/Reveal";
-import Grafismo from "@/components/ui/Grafismo";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -30,18 +29,6 @@ export default function Hero() {
       <motion.div
         className="absolute -top-1/3 left-1/2 h-[80vh] w-[80vh] -translate-x-1/2 rounded-full bg-praia-yellow/10 blur-[160px]"
         aria-hidden
-      />
-
-      {/* Grafismos da identidade */}
-      <Grafismo
-        className="absolute -left-8 top-16 w-40 opacity-[0.13] md:left-10 md:w-56"
-        color="#F4D800"
-        secondary="#FFFFFF"
-      />
-      <Grafismo
-        className="absolute -bottom-10 right-4 w-36 rotate-180 opacity-[0.10] md:right-16 md:w-48"
-        color="#F4D800"
-        secondary="#FFFFFF"
       />
 
       <motion.div
