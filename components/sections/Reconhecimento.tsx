@@ -7,7 +7,7 @@ const pilares = [
   {
     titulo: "Cor",
     descricao:
-      "O amarelo e o preto identificam o Praia antes de qualquer palavra ser lida.",
+      "Amarelo #F4D800 e preto identificam o Praia antes de qualquer palavra — com o azul de apoio para destaques.",
     demo: (
       <div className="flex h-24 items-center justify-center gap-3">
         <motion.div
@@ -21,6 +21,12 @@ const pilares = [
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.15, ease: "backOut" }}
           className="h-14 w-14 rounded-full bg-praia-black"
+        />
+        <motion.div
+          whileInView={{ scale: [0, 1] }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3, ease: "backOut" }}
+          className="h-9 w-9 rounded-full bg-praia-blue"
         />
       </div>
     ),
@@ -82,7 +88,7 @@ export default function Reconhecimento() {
     <section className="bg-praia-paper py-32 md:py-44">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-praia-ink/40">
+          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-praia-blue">
             Ato III — Como reconhecemos uma marca
           </p>
         </Reveal>

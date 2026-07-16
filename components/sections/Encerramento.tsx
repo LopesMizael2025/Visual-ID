@@ -38,7 +38,7 @@ export default function Encerramento() {
           <img
             src="https://praiaclube.org.br/wp-content/uploads/2023/01/Patrocinadores-Dentil-Praia-Clube_0004_praia-clube.png"
             alt="Praia Clube — Uberlândia MG"
-            className="w-56 drop-shadow-[0_0_60px_rgba(255,220,14,0.35)] md:w-72"
+            className="w-56 drop-shadow-[0_0_60px_rgba(244,216,0,0.35)] md:w-72"
           />
           <p className="text-[10px] uppercase tracking-[0.35em] text-white/40 md:text-xs">
             Desde 1935 · Conexão · Tradição · Inovação

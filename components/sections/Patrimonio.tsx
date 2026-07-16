@@ -49,7 +49,7 @@ export default function Patrimonio() {
     <section className="bg-praia-paper text-praia-ink">
       <div className="mx-auto max-w-4xl px-6 pb-10 pt-32 text-center md:pt-44">
         <Reveal>
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-praia-ink/40">
+          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-praia-blue">
             Ato I — O Patrimônio
           </p>
         </Reveal>

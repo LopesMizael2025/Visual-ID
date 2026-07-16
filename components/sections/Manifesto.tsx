@@ -16,7 +16,7 @@ export default function Manifesto() {
     <section className="bg-praia-paper py-32 md:py-44">
       <div className="mx-auto max-w-4xl px-6">
         <Reveal>
-          <p className="mb-16 text-center text-xs font-semibold uppercase tracking-[0.35em] text-praia-ink/40">
+          <p className="mb-16 text-center text-xs font-semibold uppercase tracking-[0.35em] text-praia-blue">
             Ato V — Manifesto e compromisso
           </p>
         </Reveal>
