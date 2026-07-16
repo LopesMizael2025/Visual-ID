@@ -29,20 +29,20 @@ export default function Encerramento() {
           </span>
         </motion.p>
 
-        {/* Logotipo — substituir pelo logo oficial (SVG) do Praia Clube */}
+        {/* Logotipo oficial do Praia Clube */}
         <motion.div
           style={{ opacity: logoOpacity, scale: logoScale }}
-          className="absolute flex flex-col items-center gap-6"
+          className="absolute flex flex-col items-center gap-7"
         >
-          <div className="flex h-28 w-28 items-center justify-center rounded-full border-2 border-praia-yellow md:h-36 md:w-36">
-            <span className="text-4xl font-semibold tracking-tightest text-praia-yellow md:text-5xl">
-              PC
-            </span>
+          <div className="flex h-40 w-40 items-center justify-center rounded-full bg-white p-4 shadow-[0_0_80px_-10px_rgba(255,220,14,0.45)] md:h-52 md:w-52">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://praiaclube.org.br/wp-content/uploads/2025/02/Praia-clube-Logo-500px.png"
+              alt="Praia Clube — Uberlândia MG"
+              className="h-full w-full object-contain"
+            />
           </div>
-          <p className="text-sm uppercase tracking-[0.4em] text-white/70 md:text-base">
-            Praia Clube
-          </p>
-          <p className="text-[10px] uppercase tracking-[0.35em] text-white/30 md:text-xs">
+          <p className="text-[10px] uppercase tracking-[0.35em] text-white/40 md:text-xs">
             Desde 1935 · Conexão · Tradição · Inovação
           </p>
         </motion.div>
