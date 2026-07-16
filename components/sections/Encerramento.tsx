@@ -1,7 +1,12 @@
 "use client";
 
 import { useRef } from "react";
+import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
+
+const OrbitScene = dynamic(() => import("@/components/three/OrbitScene"), {
+  ssr: false,
+});
 
 export default function Encerramento() {
   const ref = useRef<HTMLElement>(null);
@@ -18,6 +23,14 @@ export default function Encerramento() {
   return (
     <section ref={ref} className="relative h-[300vh] bg-black">
       <div className="sticky top-0 flex h-[100svh] items-center justify-center overflow-hidden">
+        {/* Órbitas 3D ao redor do logo */}
+        <motion.div
+          style={{ opacity: logoOpacity }}
+          className="absolute inset-0"
+        >
+          <OrbitScene />
+        </motion.div>
+
         {/* Frase final */}
         <motion.p
           style={{ opacity: fraseOpacity, y: fraseY }}

@@ -1,8 +1,13 @@
 "use client";
 
 import { useRef } from "react";
+import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { WordReveal } from "@/components/ui/Reveal";
+
+const HeroScene = dynamic(() => import("@/components/three/HeroScene"), {
+  ssr: false,
+});
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -30,6 +35,9 @@ export default function Hero() {
         className="absolute -top-1/3 left-1/2 h-[80vh] w-[80vh] -translate-x-1/2 rounded-full bg-praia-yellow/10 blur-[160px]"
         aria-hidden
       />
+
+      {/* Formas 3D interativas (mouse + scroll) */}
+      <HeroScene />
 
       <motion.div
         style={{ y, opacity }}
