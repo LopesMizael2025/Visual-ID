@@ -15,6 +15,7 @@ const aplicacoes = [
     bg: "bg-white",
     border: "border border-praia-ink/8",
     label: "text-praia-gray",
+    contorno: false,
   },
   {
     nome: "Oficial",
@@ -23,14 +24,16 @@ const aplicacoes = [
     bg: "bg-praia-black",
     border: "",
     label: "text-white/50",
+    contorno: false,
   },
   {
     nome: "Fundo amarelo",
-    uso: "Aplicações institucionais",
+    uso: "Versão em contorno",
     logo: LOGO_POSITIVA,
     bg: "bg-praia-yellow",
     border: "",
     label: "text-praia-ink/60",
+    contorno: true,
   },
 ];
 
@@ -81,12 +84,27 @@ export default function Marca() {
               <figure
                 className={`flex h-64 flex-col items-center justify-center rounded-3xl ${ap.bg} ${ap.border} shadow-[0_16px_50px_-28px_rgba(0,0,0,0.35)]`}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={ap.logo}
-                  alt={`Logo Praia Clube — versão ${ap.nome}`}
-                  className="h-32 w-auto object-contain md:h-36"
-                />
+                <div className="relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={ap.logo}
+                    alt={`Logo Praia Clube — versão ${ap.nome}`}
+                    className="h-32 w-auto object-contain md:h-36"
+                  />
+                  {ap.contorno ? (
+                    <span
+                      className="absolute rounded-full border-2 border-praia-black"
+                      style={{
+                        width: "60.5%",
+                        aspectRatio: "1 / 1",
+                        left: "47.7%",
+                        top: "48.6%",
+                        transform: "translate(-50%, -50%)",
+                      }}
+                      aria-hidden
+                    />
+                  ) : null}
+                </div>
                 <figcaption
                   className={`mt-5 text-[10px] font-semibold uppercase tracking-[0.3em] ${ap.label}`}
                 >
