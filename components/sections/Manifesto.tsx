@@ -52,11 +52,13 @@ export default function Manifesto() {
             <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
               Nosso compromisso
             </h3>
-            <p className="mx-auto mt-5 max-w-2xl text-base font-light leading-relaxed text-praia-ink/60 md:text-lg">
+            <p className="mx-auto mt-5 max-w-3xl text-balance text-base font-light leading-relaxed text-praia-ink/60 md:text-lg">
               Toda criação — com ou sem IA — segue o briefing, a direção de
-              arte e o manual de identidade visual do Praia Clube. Missão,
-              visão, valores e posicionamento institucional não são opcionais:
-              são o ponto de partida de cada peça.
+              arte e o manual de identidade visual do Praia Clube.
+            </p>
+            <p className="mx-auto mt-3 max-w-3xl text-balance text-base font-light leading-relaxed text-praia-ink/60 md:text-lg">
+              Missão, visão, valores e posicionamento institucional não são
+              opcionais: são o ponto de partida de cada peça.
             </p>
           </div>
         </Reveal>
