@@ -1,19 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
+import { useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { WordReveal } from "@/components/ui/Reveal";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [montado, setMontado] = useState(false); // ~5s de vídeo: robô montado
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -22,45 +15,49 @@ export default function Hero() {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.1, 1.18]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.06, 1.14]);
 
-  // Parallax do mouse — ativo desde o início
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const px = useSpring(mx, { stiffness: 60, damping: 18 });
-  const py = useSpring(my, { stiffness: 60, damping: 18 });
-  // Conteúdo se move levemente no sentido oposto (profundidade)
-  const cx = useTransform(px, (v) => v * -0.35);
-  const cy = useTransform(py, (v) => v * -0.35);
-
-  useEffect(() => {
-    const onMove = (e: PointerEvent) => {
-      mx.set((e.clientX / window.innerWidth - 0.5) * -52);
-      my.set((e.clientY / window.innerHeight - 0.5) * -34);
-    };
-    window.addEventListener("pointermove", onMove);
-    return () => window.removeEventListener("pointermove", onMove);
-  }, [mx, my]);
-
-  // Aos 5s de vídeo (robô montado), a opacidade desce para 75%
+  // O mouse controla o tempo do vídeo: o robô "vira o rosto" seguindo o cursor.
+  // Sem autoplay — o vídeo fica pausado e é percorrido (scrub) suavemente.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    let done = false;
-    const marcar = () => {
-      if (!done) {
-        done = true;
-        setMontado(true);
+
+    let alvo = 0; // tempo desejado (s)
+    let atual = 0; // tempo suavizado (s)
+    let raf = 0;
+    let dur = 0;
+
+    const onMeta = () => {
+      dur = v.duration || 8;
+      v.pause();
+      v.currentTime = 0;
+    };
+
+    const onMove = (e: PointerEvent) => {
+      const nx = e.clientX / window.innerWidth; // 0 (esq) .. 1 (dir)
+      if (dur > 0) alvo = (1 - nx) * Math.max(dur - 0.08, 0);
+    };
+
+    const loop = () => {
+      atual += (alvo - atual) * 0.1;
+      if (v.readyState >= 2 && Math.abs(v.currentTime - atual) > 0.03) {
+        try {
+          v.currentTime = atual;
+        } catch {}
       }
+      raf = requestAnimationFrame(loop);
     };
-    const onTime = () => {
-      if (v.currentTime >= 5) marcar();
-    };
-    const timer = window.setTimeout(marcar, 6000); // fallback
-    v.addEventListener("timeupdate", onTime);
+
+    v.addEventListener("loadedmetadata", onMeta);
+    if (v.readyState >= 1) onMeta();
+    window.addEventListener("pointermove", onMove);
+    raf = requestAnimationFrame(loop);
+
     return () => {
-      window.clearTimeout(timer);
-      v.removeEventListener("timeupdate", onTime);
+      cancelAnimationFrame(raf);
+      v.removeEventListener("loadedmetadata", onMeta);
+      window.removeEventListener("pointermove", onMove);
     };
   }, []);
 
@@ -69,19 +66,11 @@ export default function Hero() {
       ref={ref}
       className="relative flex h-[100svh] items-center justify-center overflow-hidden bg-praia-black text-white"
     >
-      {/* Vídeo de fundo com parallax de mouse */}
-      <motion.div
-        style={{ x: px, y: py, scale }}
-        animate={{ opacity: montado ? 0.75 : 1 }}
-        transition={{ duration: 1.4, ease: "easeInOut" }}
-        className="absolute inset-0"
-        aria-hidden
-      >
+      {/* Vídeo de fundo controlado pelo mouse — opacidade 85% */}
+      <motion.div style={{ scale }} className="absolute inset-0 opacity-85" aria-hidden>
         <video
           ref={videoRef}
-          autoPlay
           muted
-          loop
           playsInline
           preload="auto"
           className="h-full w-full object-cover"
@@ -90,9 +79,9 @@ export default function Hero() {
       </motion.div>
 
       {/* Véus para legibilidade do texto */}
-      <div className="absolute inset-0 bg-praia-black/50" aria-hidden />
+      <div className="absolute inset-0 bg-praia-black/45" aria-hidden />
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(10,10,10,0.7)_80%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(10,10,10,0.7)_82%)]"
         aria-hidden
       />
 
@@ -100,7 +89,6 @@ export default function Hero() {
         style={{ y, opacity }}
         className="relative z-10 mx-auto max-w-5xl px-6 text-center"
       >
-       <motion.div style={{ x: cx, y: cy }}>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -127,7 +115,6 @@ export default function Hero() {
           Uma experiência sobre tecnologia, identidade e o patrimônio que
           construímos juntos há nove décadas.
         </motion.p>
-       </motion.div>
       </motion.div>
 
       <motion.div
