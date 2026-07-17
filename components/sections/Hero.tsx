@@ -1,12 +1,26 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { WordReveal } from "@/components/ui/Reveal";
+
+/**
+ * Hero V5 — abertura cinematográfica em sequência documental:
+ * vídeo puro → overlay suave → 1935 → "Uma marca começou aqui." →
+ * "Mais de nove décadas depois..." → overlay sai → pausa → título (WordReveal).
+ * Vídeo, scrub pelo mouse, zoom, véus e scroll indicator permanecem intactos.
+ */
+
+const FRASES = [
+  { texto: "1935", delay: 1.8, dur: 2.1, grande: true },
+  { texto: "Uma marca começou aqui.", delay: 4.2, dur: 1.9, grande: false },
+  { texto: "Mais de nove décadas depois...", delay: 6.4, dur: 1.9, grande: false },
+];
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [etapa, setEtapa] = useState(0); // 0 narrativa · 1 título · 2 +amarelo · 3 +subtítulo
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -17,14 +31,23 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1.06, 1.14]);
 
-  // O mouse controla o tempo do vídeo: o robô "vira o rosto" seguindo o cursor.
-  // Sem autoplay — o vídeo fica pausado e é percorrido (scrub) suavemente.
+  // Sequência do título após a narrativa
+  useEffect(() => {
+    const timers = [
+      window.setTimeout(() => setEtapa(1), 9700),
+      window.setTimeout(() => setEtapa(2), 10500),
+      window.setTimeout(() => setEtapa(3), 11500),
+    ];
+    return () => timers.forEach((t) => window.clearTimeout(t));
+  }, []);
+
+  // O mouse controla o tempo do vídeo (scrub) — inalterado
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
 
-    let alvo = 0; // tempo desejado (s)
-    let atual = 0; // tempo suavizado (s)
+    let alvo = 0;
+    let atual = 0;
     let raf = 0;
     let dur = 0;
 
@@ -35,7 +58,7 @@ export default function Hero() {
     };
 
     const onMove = (e: PointerEvent) => {
-      const nx = e.clientX / window.innerWidth; // 0 (esq) .. 1 (dir)
+      const nx = e.clientX / window.innerWidth;
       if (dur > 0) alvo = (1 - nx) * Math.max(dur - 0.08, 0);
     };
 
@@ -66,7 +89,7 @@ export default function Hero() {
       ref={ref}
       className="relative flex h-[100svh] items-center justify-center overflow-hidden bg-praia-black text-white"
     >
-      {/* Vídeo de fundo controlado pelo mouse — opacidade 85% */}
+      {/* Vídeo de fundo — inalterado */}
       <motion.div style={{ scale }} className="absolute inset-0 opacity-85" aria-hidden>
         <video
           ref={videoRef}
@@ -78,45 +101,82 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* Véus para legibilidade do texto */}
+      {/* Véus permanentes — inalterados */}
       <div className="absolute inset-0 bg-praia-black/45" aria-hidden />
       <div
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(10,10,10,0.7)_82%)]"
         aria-hidden
       />
 
+      {/* Overlay narrativo: entra aos ~1.8s, sai lentamente após ~8.2s */}
       <motion.div
-        style={{ y, opacity }}
-        className="relative z-10 mx-auto max-w-5xl px-6 text-center"
-      >
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="mb-8 text-xs font-medium uppercase tracking-[0.35em] text-praia-yellow"
+        className="absolute inset-0 bg-black"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0, 0.18, 0.18, 0] }}
+        transition={{ duration: 9.2, times: [0, 0.195, 0.25, 0.89, 1], ease: "easeInOut" }}
+        aria-hidden
+      />
+
+      {/* Narrativa documental */}
+      <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-6">
+        {FRASES.map((f) => (
+          <motion.h2
+            key={f.texto}
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: [0, 1, 1, 0],
+              y: [20, 0, 0, -12],
+              scale: [0.98, 1, 1, 1.005],
+              filter: ["blur(10px)", "blur(0px)", "blur(0px)", "blur(6px)"],
+            }}
+            transition={{ delay: f.delay, duration: f.dur, times: [0, 0.3, 0.78, 1], ease: "easeInOut" }}
+            className={`absolute text-balance text-center font-semibold tracking-tightest text-white ${
+              f.grande
+                ? "text-8xl md:text-9xl"
+                : "text-4xl md:text-6xl lg:text-7xl"
+            }`}
+          >
+            {f.texto}
+          </motion.h2>
+        ))}
+      </div>
+
+      {/* Título principal — entra após a narrativa (~9.7s) */}
+      {etapa >= 1 && (
+        <motion.div
+          style={{ y, opacity }}
+          className="relative z-10 mx-auto max-w-5xl px-6 text-center"
         >
-          Praia Clube · Marketing · Desde 1935
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.1 }}
+            className="mb-8 text-xs font-medium uppercase tracking-[0.35em] text-praia-yellow"
+          >
+            Praia Clube · Marketing · Desde 1935
+          </motion.p>
 
-        <h1 className="text-balance text-5xl font-semibold leading-[1.05] tracking-tightest md:text-7xl lg:text-8xl">
-          <WordReveal text="A IA não cria marcas." />
-          <br />
-          <span className="text-praia-yellow">
-            <WordReveal text="Pessoas criam." />
-          </span>
-        </h1>
+          <h1 className="text-balance text-5xl font-semibold leading-[1.05] tracking-tightest md:text-7xl lg:text-8xl">
+            <WordReveal text="A IA não cria marcas." />
+            <br />
+            <span className="text-praia-yellow">
+              {etapa >= 2 ? <WordReveal text="Pessoas criam." /> : <span>&nbsp;</span>}
+            </span>
+          </h1>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 1.4 }}
-          className="mx-auto mt-10 max-w-2xl text-lg font-light text-white/60 md:text-xl"
-        >
-          Uma experiência sobre tecnologia, identidade e o patrimônio que
-          construímos juntos há nove décadas.
-        </motion.p>
-      </motion.div>
+          <motion.p
+            initial={false}
+            animate={{ opacity: etapa >= 3 ? 1 : 0, y: etapa >= 3 ? 0 : 14 }}
+            transition={{ duration: 1.1, ease: "easeOut" }}
+            className="mx-auto mt-10 max-w-2xl text-lg font-light text-white/60 md:text-xl"
+          >
+            Uma experiência sobre tecnologia, identidade e o patrimônio que
+            construímos juntos há nove décadas.
+          </motion.p>
+        </motion.div>
+      )}
 
+      {/* Scroll indicator — inalterado */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
