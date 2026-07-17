@@ -25,15 +25,12 @@ export default function Evolucao() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="text-center">
           <p className="mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-praia-yellow/80">
-            1935 — 2025
+            1935 — 2026
           </p>
           <h2 className="text-balance text-4xl font-semibold leading-tight tracking-tightest md:text-6xl">
             O tempo passa.
             <span className="text-white/40"> A identidade fica.</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-base font-light text-white/50 md:text-lg">
-            Nove décadas do acervo do clube — a mesma marca em cada época.
-          </p>
         </div>
 
         <div className="mt-16 grid grid-cols-2 gap-4 md:gap-5 lg:grid-cols-4">
@@ -61,10 +58,7 @@ export default function Evolucao() {
               {/* Gradiente e legenda na base */}
               <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
               <figcaption className="absolute inset-x-0 bottom-0 p-4 text-center md:p-5">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-praia-yellow">
-                  {foto.era}
-                </p>
-                <p className="mt-1 text-sm font-semibold tracking-tight text-white md:text-base">
+                <p className="text-sm font-semibold tracking-tight text-white md:text-base">
                   {foto.legenda}
                 </p>
               </figcaption>
@@ -73,7 +67,7 @@ export default function Evolucao() {
         </div>
 
         <p className="mt-16 text-center text-xs font-medium uppercase tracking-[0.3em] text-white/30 lg:mt-24">
-          Acervo Praia Clube · 1935 — 2025
+          Acervo Praia Clube · 1935 — 2026
         </p>
       </div>
     </section>
