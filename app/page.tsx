@@ -1,5 +1,6 @@
 import Hero from "@/components/sections/Hero";
 import Patrimonio from "@/components/sections/Patrimonio";
+import Evolucao from "@/components/sections/Evolucao";
 import ProblemaInvisivel from "@/components/sections/ProblemaInvisivel";
 import Reconhecimento from "@/components/sections/Reconhecimento";
 import Marca from "@/components/sections/Marca";
@@ -12,6 +13,7 @@ export default function Home() {
     <main>
       <Hero />
       <Patrimonio />
+      <Evolucao />
       <ProblemaInvisivel />
       <Reconhecimento />
       <Marca />
