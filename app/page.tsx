@@ -10,24 +10,36 @@ import IAProvaVisual from "@/components/ia/IAProvaVisual";
 import IARitualDeAprovacao from "@/components/ia/IARitualDeAprovacao";
 import Manifesto from "@/components/sections/Manifesto";
 import Encerramento from "@/components/sections/Encerramento";
+import ProgressoAtos from "@/components/ui/ProgressoAtos";
 
 export default function Home() {
   return (
     <main>
       <Hero />
-      <Patrimonio />
-      <Evolucao />
-      <ProblemaInvisivel />
-      <Reconhecimento />
-      <Marca />
-      <PapelDaIA />
-      {/* Ato V — IA com Identidade */}
-      <IAComIdentidade />
-      <IAProvaVisual />
-      <IARitualDeAprovacao />
-      {/* Ato VI — Manifesto e compromisso */}
-      <Manifesto />
-      <Encerramento />
+      <div data-ato="1">
+        <Patrimonio />
+        <Evolucao />
+      </div>
+      <div data-ato="2">
+        <ProblemaInvisivel />
+      </div>
+      <div data-ato="3">
+        <Reconhecimento />
+        <Marca />
+      </div>
+      <div data-ato="4">
+        <PapelDaIA />
+      </div>
+      <div data-ato="5">
+        <IAComIdentidade />
+        <IAProvaVisual />
+        <IARitualDeAprovacao />
+      </div>
+      <div data-ato="6">
+        <Manifesto />
+        <Encerramento />
+      </div>
+      <ProgressoAtos />
     </main>
   );
 }
