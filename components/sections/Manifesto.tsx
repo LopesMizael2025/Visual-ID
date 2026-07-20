@@ -17,7 +17,7 @@ export default function Manifesto() {
       <div className="mx-auto max-w-4xl px-6">
         <Reveal>
           <p className="mb-16 text-center text-xs font-semibold uppercase tracking-[0.35em] text-praia-blue">
-            Ato V — Manifesto e compromisso
+            Ato VI — Manifesto e compromisso
           </p>
         </Reveal>
 

@@ -4,13 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { WordReveal } from "@/components/ui/Reveal";
 
-/**
- * Hero V5 — abertura cinematográfica em sequência documental:
- * vídeo puro → overlay suave → 1935 → "Uma marca começou aqui." →
- * "Mais de nove décadas depois..." → overlay sai → pausa → título (WordReveal).
- * Vídeo, scrub pelo mouse, zoom, véus e scroll indicator permanecem intactos.
- */
-
 const FRASES = [
   { texto: "1935", delay: 1.8, dur: 2.1, grande: true },
   { texto: "Uma marca começou aqui.", delay: 4.2, dur: 1.9, grande: false },
@@ -20,7 +13,7 @@ const FRASES = [
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [etapa, setEtapa] = useState(0); // 0 narrativa · 1 título · 2 +amarelo · 3 +subtítulo
+  const [etapa, setEtapa] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -31,7 +24,6 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1.06, 1.14]);
 
-  // Sequência do título após a narrativa
   useEffect(() => {
     const timers = [
       window.setTimeout(() => setEtapa(1), 9700),
@@ -41,7 +33,6 @@ export default function Hero() {
     return () => timers.forEach((t) => window.clearTimeout(t));
   }, []);
 
-  // O mouse controla o tempo do vídeo (scrub) — inalterado
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
@@ -51,8 +42,26 @@ export default function Hero() {
     let raf = 0;
     let dur = 0;
 
+    const temMouse =
+      typeof window !== "undefined" &&
+      window.matchMedia("(pointer: fine)").matches;
+    const reduzMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const onMeta = () => {
       dur = v.duration || 8;
+      if (!temMouse) {
+        // Mobile/touch: sem mouse para o scrub — o video roda em loop suave
+        if (!reduzMotion) {
+          v.loop = true;
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+          v.currentTime = 0;
+        }
+        return;
+      }
       v.pause();
       v.currentTime = 0;
     };
@@ -63,6 +72,10 @@ export default function Hero() {
     };
 
     const loop = () => {
+      if (!temMouse) {
+        raf = requestAnimationFrame(loop);
+        return;
+      }
       atual += (alvo - atual) * 0.1;
       if (v.readyState >= 2 && Math.abs(v.currentTime - atual) > 0.03) {
         try {
@@ -89,7 +102,6 @@ export default function Hero() {
       ref={ref}
       className="relative flex h-[100svh] items-center justify-center overflow-hidden bg-praia-black text-white"
     >
-      {/* Vídeo de fundo — inalterado */}
       <motion.div style={{ scale }} className="absolute inset-0 opacity-85" aria-hidden>
         <video
           ref={videoRef}
@@ -101,14 +113,12 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* Véus permanentes — inalterados */}
       <div className="absolute inset-0 bg-praia-black/45" aria-hidden />
       <div
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(10,10,10,0.7)_82%)]"
         aria-hidden
       />
 
-      {/* Overlay narrativo: entra aos ~1.8s, sai lentamente após ~8.2s */}
       <motion.div
         className="absolute inset-0 bg-black"
         initial={{ opacity: 0 }}
@@ -117,7 +127,6 @@ export default function Hero() {
         aria-hidden
       />
 
-      {/* Narrativa documental */}
       <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-6">
         {FRASES.map((f) => (
           <motion.h2
@@ -141,7 +150,6 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* Título principal — entra após a narrativa (~9.7s) */}
       {etapa >= 1 && (
         <motion.div
           style={{ y, opacity }}
@@ -153,11 +161,11 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.1 }}
             className="mb-8 text-xs font-medium uppercase tracking-[0.35em] text-praia-yellow"
           >
-            Praia Clube · Marketing · Desde 1935
+            Praia Clube &middot; Marketing &middot; Desde 1935
           </motion.p>
 
           <h1 className="text-balance text-5xl font-semibold leading-[1.05] tracking-tightest md:text-7xl lg:text-8xl">
-            <WordReveal text="A IA não cria marcas." />
+            <WordReveal text="A IA n&atilde;o cria marcas." />
             <br />
             <span className="text-praia-yellow">
               {etapa >= 2 ? <WordReveal text="Pessoas criam." /> : <span>&nbsp;</span>}
@@ -170,13 +178,12 @@ export default function Hero() {
             transition={{ duration: 1.1, ease: "easeOut" }}
             className="mx-auto mt-10 max-w-2xl text-lg font-light text-white/60 md:text-xl"
           >
-            Uma experiência sobre tecnologia, identidade e o patrimônio que
-            construímos juntos há nove décadas.
+            Uma experi&ecirc;ncia sobre tecnologia, identidade e o patrim&ocirc;nio que
+            constru&iacute;mos juntos h&aacute; nove d&eacute;cadas.
           </motion.p>
         </motion.div>
       )}
 
-      {/* Scroll indicator — inalterado */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
