@@ -7,11 +7,13 @@ export default function BeforeAfter({
   after,
   beforeLabel = "Sem direção",
   afterLabel = "Com identidade",
+  aspectClass = "aspect-[16/10]",
 }: {
   before: React.ReactNode;
   after: React.ReactNode;
   beforeLabel?: string;
   afterLabel?: string;
+  aspectClass?: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(50);
@@ -43,7 +45,7 @@ export default function BeforeAfter({
   return (
     <div
       ref={containerRef}
-      className="relative aspect-[16/10] w-full cursor-ew-resize touch-none select-none overflow-hidden rounded-3xl shadow-[0_30px_80px_-30px_rgba(0,0,0,0.5)] outline-none focus-visible:ring-2 focus-visible:ring-praia-yellow"
+      className={`relative ${aspectClass} w-full cursor-ew-resize touch-none select-none overflow-hidden rounded-3xl shadow-[0_30px_80px_-30px_rgba(0,0,0,0.5)] outline-none focus-visible:ring-2 focus-visible:ring-praia-yellow`}
       onPointerDown={(e) => {
         (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
         updateFromClientX(e.clientX);
