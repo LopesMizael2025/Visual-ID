@@ -128,7 +128,7 @@ export default function IAComIdentidade() {
     return (
       <section className="bg-praia-paper py-28 text-praia-ink md:py-36">
         <div className="mx-auto max-w-3xl space-y-20 px-6 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-praia-blue">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-praia-ink/40">
             Ato V — IA com identidade
           </p>
           <h2 className="text-4xl font-semibold tracking-tightest md:text-6xl">
@@ -153,7 +153,7 @@ export default function IAComIdentidade() {
   return (
     <section ref={ref} className="relative h-[260vh] bg-praia-paper text-praia-ink">
       <div className="sticky top-0 flex h-[100svh] items-center justify-center overflow-hidden">
-        <p className="absolute top-16 w-full text-center text-xs font-semibold uppercase tracking-[0.35em] text-praia-blue md:top-24">
+        <p className="absolute top-16 w-full text-center text-xs font-semibold uppercase tracking-[0.35em] text-praia-ink/40 md:top-24">
           Ato V — IA com identidade
         </p>
 
