@@ -24,10 +24,26 @@ export default function BeforeAfter({
     setPosition(Math.min(96, Math.max(4, pct)));
   }, []);
 
+  const onKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
+      e.preventDefault();
+      setPosition((p) => Math.max(4, p - 5));
+    } else if (e.key === "ArrowRight" || e.key === "ArrowUp") {
+      e.preventDefault();
+      setPosition((p) => Math.min(96, p + 5));
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      setPosition(4);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      setPosition(96);
+    }
+  }, []);
+
   return (
     <div
       ref={containerRef}
-      className="relative aspect-[16/10] w-full cursor-ew-resize touch-none select-none overflow-hidden rounded-3xl shadow-[0_30px_80px_-30px_rgba(0,0,0,0.5)]"
+      className="relative aspect-[16/10] w-full cursor-ew-resize touch-none select-none overflow-hidden rounded-3xl shadow-[0_30px_80px_-30px_rgba(0,0,0,0.5)] outline-none focus-visible:ring-2 focus-visible:ring-praia-yellow"
       onPointerDown={(e) => {
         (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
         updateFromClientX(e.clientX);
@@ -35,11 +51,13 @@ export default function BeforeAfter({
       onPointerMove={(e) => {
         if (e.buttons === 1) updateFromClientX(e.clientX);
       }}
+      onKeyDown={onKeyDown}
+      tabIndex={0}
       role="slider"
       aria-valuenow={Math.round(position)}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-label="Comparador antes e depois"
+      aria-label="Comparador antes e depois — use as setas do teclado para ajustar"
     >
       {/* Depois (fundo) */}
       <div className="absolute inset-0">{after}</div>
