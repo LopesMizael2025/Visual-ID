@@ -31,8 +31,8 @@ export default function ProblemaInvisivel() {
           {artesInconsistentes.map((arte, i) => (
             <motion.div
               key={arte.rotulo}
-              initial={{ opacity: 0, y: 40, rotate: 0 }}
-              whileInView={{ opacity: 1, y: 0, rotate: i % 2 === 0 ? -1.5 : 1.5 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10% 0px" }}
               transition={{ duration: 0.8, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
               className="glass rounded-2xl p-6"

@@ -56,7 +56,7 @@ export default function Marca() {
     <section className="bg-praia-paper py-32 md:py-44">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-praia-blue">
+          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-praia-ink/40">
             A Marca — Versões e aplicações
           </p>
         </Reveal>

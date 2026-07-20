@@ -7,26 +7,20 @@ const pilares = [
   {
     titulo: "Cor",
     descricao:
-      "Amarelo #F4D800 e preto identificam o Praia antes de qualquer palavra — com o azul de apoio para destaques.",
+      "O amarelo e o preto identificam o Praia antes de qualquer palavra ser lida.",
     demo: (
       <div className="flex h-24 items-center justify-center gap-3">
         <motion.div
           whileInView={{ scale: [0, 1] }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "backOut" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="h-14 w-14 rounded-full bg-praia-yellow"
         />
         <motion.div
           whileInView={{ scale: [0, 1] }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.15, ease: "backOut" }}
+          transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           className="h-14 w-14 rounded-full bg-praia-black"
-        />
-        <motion.div
-          whileInView={{ scale: [0, 1] }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3, ease: "backOut" }}
-          className="h-9 w-9 rounded-full bg-praia-blue"
         />
       </div>
     ),
@@ -55,7 +49,7 @@ const pilares = [
     demo: (
       <div className="flex h-24 items-center justify-center">
         <motion.div
-          whileInView={{ rotate: [45, 0], borderRadius: ["10%", "50%"] }}
+          whileInView={{ scale: [0.7, 1], borderRadius: ["10%", "50%"] }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="h-14 w-14 border-4 border-praia-yellow"
@@ -88,7 +82,7 @@ export default function Reconhecimento() {
     <section className="bg-praia-paper py-32 md:py-44">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-praia-blue">
+          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-praia-ink/40">
             Ato III — Como reconhecemos uma marca
           </p>
         </Reveal>
