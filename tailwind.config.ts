@@ -9,9 +9,14 @@ const config: Config = {
     extend: {
       colors: {
         praia: {
-          yellow: "#FFDC0E",
-          black: "#0A0A0A",
-          ink: "#111111",
+          // Paleta oficial — Manual de Identidade Visual Praia Clube
+          yellow: "#F4D800",
+          black: "#130F14",
+          ink: "#1D1D1B",
+          graphite: "#1D1D1B",
+          gray: "#5B5B5F",
+          blue: "#008BD2",
+          white: "#FFFFFF",
           paper: "#FAFAF7",
         },
       },
