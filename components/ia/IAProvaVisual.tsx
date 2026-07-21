@@ -6,15 +6,16 @@ import BeforeAfter from "@/components/ui/BeforeAfter";
 
 /**
  * Ato V · Prova visual — a mesma campanha de acessibilidade, dois caminhos:
- * estética genérica de IA × identidade do feed oficial do Praia Clube.
- * Peças recriadas como demonstração de composição.
+ * composição solta × padrões oficiais do Praia Clube (fundo preto,
+ * grafismo geométrico do manual, selo redondo). Peças recriadas como
+ * demonstração de composição.
  */
 
 const criterios = [
-  { n: "01", t: "Grafismo do manual, não efeito genérico" },
+  { n: "01", t: "Grafismo geométrico do manual" },
   { n: "02", t: "Contraste para leitura" },
   { n: "03", t: "Ícones e hierarquia organizados" },
-  { n: "04", t: "Assinatura com área de reserva" },
+  { n: "04", t: "Assinatura oficial com área de reserva" },
 ];
 
 function Icones({ escuro = false }: { escuro?: boolean }) {
@@ -59,41 +60,8 @@ function Icones({ escuro = false }: { escuro?: boolean }) {
 
 function PecaSemDirecao() {
   return (
-    <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-[#0b0a08] p-5 text-center md:p-8">
-      {/* Ondas douradas genéricas de IA */}
-      <div className="pointer-events-none absolute -left-16 -top-10 h-56 w-56 rounded-full border-[3px] border-amber-300/70 blur-[1px]" style={{ borderRadius: "58% 42% 55% 45% / 60% 45% 55% 40%" }} aria-hidden />
-      <div className="pointer-events-none absolute -left-24 -top-2 h-64 w-64 rounded-full border-2 border-amber-500/40" style={{ borderRadius: "58% 42% 55% 45% / 60% 45% 55% 40%" }} aria-hidden />
-      <div className="pointer-events-none absolute -bottom-14 -right-10 h-52 w-72 rotate-12 bg-gradient-to-tr from-amber-400/30 via-amber-200/10 to-transparent blur-md" aria-hidden />
-      <div className="pointer-events-none absolute bottom-6 left-0 right-0 h-10 bg-[repeating-linear-gradient(100deg,transparent_0px,transparent_14px,rgba(251,191,36,0.25)_15px,transparent_17px)]" aria-hidden />
-
-      <p className="font-serif text-2xl font-bold uppercase tracking-tight text-white md:text-4xl">
-        Você precisa
-      </p>
-      <div className="my-1 flex items-center gap-2 md:my-2">
-        <span className="h-px w-8 bg-amber-300/80 md:w-12" />
-        <span className="font-serif text-lg font-bold uppercase text-white md:text-2xl">de</span>
-        <span className="h-px w-8 bg-amber-300/80 md:w-12" />
-      </div>
-      <p className="bg-gradient-to-b from-amber-200 to-amber-500 bg-clip-text font-serif text-3xl font-black uppercase leading-none text-transparent md:text-5xl">
-        Acessibilidade?
-      </p>
-      <p className="mt-2 text-[10px] font-light text-white/80 md:text-sm">
-        (Pessoa com deficiência ou Neurodivergente)
-      </p>
-      <div className="mt-4 md:mt-6"><Icones escuro /></div>
-      <div className="mt-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-300 md:mt-6 md:h-14 md:w-14">
-        <span className="text-center text-[6px] font-bold uppercase leading-tight text-black md:text-[7px]">
-          Praia<br />Clube
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function PecaComIdentidade() {
-  return (
     <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-white p-5 text-center md:p-8">
-      {/* Grafismo orgânico oficial: formas amarelas com traço fino */}
+      {/* Formas orgânicas soltas, fora do grafismo oficial */}
       <div className="pointer-events-none absolute -left-14 -top-14 h-44 w-44 bg-praia-yellow" style={{ borderRadius: "0 0 78% 0" }} aria-hidden />
       <div className="pointer-events-none absolute -left-10 -top-10 h-48 w-48 border border-praia-ink/50" style={{ borderRadius: "0 0 82% 0" }} aria-hidden />
       <div className="pointer-events-none absolute -bottom-16 -right-14 h-44 w-52 bg-praia-black" style={{ borderRadius: "85% 0 0 0" }} aria-hidden />
@@ -115,14 +83,11 @@ function PecaComIdentidade() {
       </p>
       <div className="mt-4 md:mt-6"><Icones /></div>
 
-      {/* Assinatura com área de reserva */}
       <div className="mt-4 flex items-center gap-2.5 md:mt-6">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://praiaclube.org.br/wp-content/uploads/2025/02/Praia-clube-Logo-500px.png"
-          alt=""
-          className="h-10 w-10 object-contain md:h-12 md:w-12"
-        />
+        <svg viewBox="0 0 24 40" className="h-9 w-auto text-praia-yellow md:h-11" fill="none" aria-hidden>
+          <circle cx="13" cy="5" r="3" fill="currentColor" />
+          <path d="M12 10c-4 4-8 6-10 12 3-1 6-3 8-2-1 6-2 11 1 17 2-6 2-11 4-16 3 1 6 4 8 8-1-8-5-13-11-19Z" fill="currentColor" />
+        </svg>
         <span className="text-left">
           <span className="block text-sm font-black uppercase leading-none tracking-tight text-praia-ink md:text-lg">
             Praia Dança
@@ -130,6 +95,69 @@ function PecaComIdentidade() {
           <span className="mt-0.5 block text-[8px] font-semibold uppercase tracking-[0.3em] text-praia-ink/60 md:text-[10px]">
             Praia Clube
           </span>
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function PecaComIdentidade() {
+  return (
+    <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-praia-black p-5 text-center md:p-8">
+      {/* Grafismo geométrico do manual — canto superior esquerdo */}
+      <svg viewBox="0 0 90 90" className="pointer-events-none absolute -left-2 -top-2 h-24 w-24 text-praia-yellow opacity-90" fill="none" aria-hidden>
+        <path d="M6 6h16v16H6z" stroke="currentColor" strokeWidth="2" />
+        <path d="M30 6l14 16H30V6Z" fill="currentColor" />
+        <circle cx="14" cy="40" r="8" stroke="currentColor" strokeWidth="2" />
+        <path d="M30 32h16v16" stroke="currentColor" strokeWidth="2" />
+        <path d="M8 58h14M8 64h14M8 70h14" stroke="currentColor" strokeWidth="2" />
+        <circle cx="40" cy="64" r="2.5" fill="currentColor" />
+      </svg>
+      {/* Grafismo geométrico — canto inferior direito */}
+      <svg viewBox="0 0 90 90" className="pointer-events-none absolute -bottom-2 -right-2 h-24 w-24 rotate-180 text-praia-yellow opacity-80" fill="none" aria-hidden>
+        <path d="M6 6h16v16H6z" stroke="currentColor" strokeWidth="2" />
+        <path d="M30 6l14 16H30V6Z" fill="currentColor" />
+        <path d="M8 34h14M8 40h14M8 46h14" stroke="currentColor" strokeWidth="2" />
+        <circle cx="38" cy="40" r="2.5" fill="currentColor" />
+        <path d="M30 58a8 8 0 0 1 16 0" stroke="currentColor" strokeWidth="2" />
+      </svg>
+      {/* Bailarina em contorno */}
+      <svg viewBox="0 0 120 200" className="pointer-events-none absolute -right-4 top-2 h-3/5 w-auto text-praia-yellow/35" fill="none" aria-hidden>
+        <path d="M58 34c6-2 10-8 8-14-2-5-9-7-14-4-5 4-5 12 0 16" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M56 36c-2 12-4 24 2 36 5 11 4 24-2 34" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        <path d="M58 44c12-6 26-16 34-30M56 48c-14-2-28 2-40 12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        <path d="M56 106c-6 22-2 48 10 66M56 106c10 16 12 40 6 62" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        <path d="M50 72c14 6 26 6 38-2" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.6" />
+      </svg>
+      {/* Ondas finas na base */}
+      <svg viewBox="0 0 200 30" className="pointer-events-none absolute bottom-2 left-0 w-3/4 text-praia-yellow/30" fill="none" preserveAspectRatio="none" aria-hidden>
+        <path d="M0 22c40-14 80 10 120-4 30-10 55-6 80-1" stroke="currentColor" strokeWidth="1" />
+        <path d="M0 27c45-12 85 8 125-5 28-9 50-5 75-1" stroke="currentColor" strokeWidth="1" />
+      </svg>
+
+      <p className="text-2xl font-black uppercase tracking-tight text-white md:text-4xl" style={{ fontStretch: "condensed" }}>
+        Você precisa
+      </p>
+      <div className="my-1 flex items-center gap-2 md:my-2">
+        <span className="h-[2px] w-8 bg-praia-yellow md:w-12" />
+        <span className="text-lg font-black uppercase text-white md:text-2xl">de</span>
+        <span className="h-[2px] w-8 bg-praia-yellow md:w-12" />
+      </div>
+      <p className="text-3xl font-black uppercase leading-none tracking-tight text-praia-yellow md:text-5xl" style={{ fontStretch: "condensed" }}>
+        Acessibilidade?
+      </p>
+      <p className="mt-2 text-[10px] font-light text-white/85 md:text-sm">
+        (Pessoa com deficiência ou Neurodivergente)
+      </p>
+      <div className="mt-4 md:mt-6"><Icones escuro /></div>
+
+      {/* Selo redondo oficial */}
+      <div className="mt-4 flex h-14 w-14 flex-col items-center justify-center rounded-full bg-praia-yellow md:mt-6 md:h-16 md:w-16">
+        <span className="text-center text-[7px] font-black uppercase leading-tight text-praia-black md:text-[8px]">
+          Praia<br />Clube
+        </span>
+        <span className="mt-0.5 text-[4.5px] font-semibold uppercase tracking-wide text-praia-black/80 md:text-[5px]">
+          Uberlândia MG
         </span>
       </div>
     </div>
@@ -154,8 +182,9 @@ export default function IAProvaVisual() {
         </h2>
         <Reveal delay={1}>
           <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-white/55 md:text-xl">
-            A mesma campanha de acessibilidade, dois caminhos: a estética
-            genérica que a IA entrega sozinha × a identidade do nosso feed.
+            A mesma campanha de acessibilidade, dois caminhos: uma composição
+            solta × os padrões oficiais do Praia — fundo preto, grafismo
+            geométrico e assinatura do clube.
           </p>
         </Reveal>
 
