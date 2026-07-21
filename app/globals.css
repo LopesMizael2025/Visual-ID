@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --praia-yellow: #f4d800;
+  --praia-yellow: #ffdc0e;
 }
 
 html {
@@ -13,6 +13,14 @@ html {
 body {
   @apply bg-praia-paper text-praia-ink antialiased;
   font-feature-settings: "ss01", "cv01";
+}
+
+/* Tipografia oficial: Exo nos títulos, Be Vietnam Pro no texto */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-exo), var(--font-be-vietnam), system-ui, sans-serif;
 }
 
 ::selection {
