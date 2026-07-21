@@ -21,7 +21,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "SF Pro Display", "system-ui", "sans-serif"],
+        sans: ["var(--font-be-vietnam)", "system-ui", "sans-serif"],
+        display: ["var(--font-exo)", "var(--font-be-vietnam)", "system-ui", "sans-serif"],
       },
       letterSpacing: {
         tightest: "-0.04em",
