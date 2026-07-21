@@ -5,9 +5,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { WordReveal } from "@/components/ui/Reveal";
 
 const FRASES = [
-  { texto: "1935", delay: 1.8, dur: 2.1, grande: true },
-  { texto: "Uma marca começou aqui.", delay: 4.2, dur: 1.9, grande: false },
-  { texto: "Mais de nove décadas depois...", delay: 6.4, dur: 1.9, grande: false },
+  { texto: "Ela aprende padrões.", delay: 1.5, dur: 2.2, grande: false, amarela: false },
+  { texto: "Ela gera imagens.", delay: 4.0, dur: 2.2, grande: false, amarela: false },
+  { texto: "Ela acelera processos.", delay: 6.5, dur: 2.2, grande: false, amarela: false },
+  { texto: "Mas existe algo que ela nunca poderá aprender sozinha.", delay: 9.3, dur: 3.4, grande: false, amarela: false },
+  { texto: "Identidade.", delay: 13.4, dur: 2.5, grande: true, amarela: true },
 ];
 
 export default function Hero() {
@@ -26,9 +28,9 @@ export default function Hero() {
 
   useEffect(() => {
     const timers = [
-      window.setTimeout(() => setEtapa(1), 9700),
-      window.setTimeout(() => setEtapa(2), 10500),
-      window.setTimeout(() => setEtapa(3), 11500),
+      window.setTimeout(() => setEtapa(1), 16300),
+      window.setTimeout(() => setEtapa(2), 17100),
+      window.setTimeout(() => setEtapa(3), 18100),
     ];
     return () => timers.forEach((t) => window.clearTimeout(t));
   }, []);
@@ -123,7 +125,7 @@ export default function Hero() {
         className="absolute inset-0 bg-black"
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 0, 0.18, 0.18, 0] }}
-        transition={{ duration: 9.2, times: [0, 0.195, 0.25, 0.89, 1], ease: "easeInOut" }}
+        transition={{ duration: 16.0, times: [0, 0.09, 0.14, 0.95, 1], ease: "easeInOut" }}
         aria-hidden
       />
 
@@ -139,10 +141,12 @@ export default function Hero() {
               filter: ["blur(10px)", "blur(0px)", "blur(0px)", "blur(6px)"],
             }}
             transition={{ delay: f.delay, duration: f.dur, times: [0, 0.3, 0.78, 1], ease: "easeInOut" }}
-            className={`absolute text-balance text-center font-semibold tracking-tightest text-white ${
+            className={`absolute text-balance text-center tracking-tightest ${
+              f.amarela ? "text-praia-yellow" : "text-white"
+            } ${
               f.grande
-                ? "text-8xl md:text-9xl"
-                : "text-4xl md:text-6xl lg:text-7xl"
+                ? "text-7xl font-bold md:text-9xl"
+                : "max-w-4xl text-4xl font-semibold md:text-6xl lg:text-7xl"
             }`}
           >
             {f.texto}
