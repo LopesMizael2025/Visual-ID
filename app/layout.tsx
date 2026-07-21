@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro, Exo } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 
-const beVietnam = Be_Vietnam_Pro({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-be-vietnam",
-  display: "swap",
-});
-
-const exo = Exo({
-  subsets: ["latin"],
-  variable: "--font-exo",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -26,7 +19,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${beVietnam.variable} ${exo.variable}`}>
+    <html lang="pt-BR" className={inter.variable}>
       <body className="font-sans">
         <SmoothScroll>{children}</SmoothScroll>
       </body>

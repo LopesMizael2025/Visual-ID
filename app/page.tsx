@@ -4,6 +4,7 @@ import Evolucao from "@/components/sections/Evolucao";
 import ProblemaInvisivel from "@/components/sections/ProblemaInvisivel";
 import Reconhecimento from "@/components/sections/Reconhecimento";
 import Marca from "@/components/sections/Marca";
+import Tipografia from "@/components/sections/Tipografia";
 import PapelDaIA from "@/components/sections/PapelDaIA";
 import IAComIdentidade from "@/components/ia/IAComIdentidade";
 import IAProvaVisual from "@/components/ia/IAProvaVisual";
@@ -27,6 +28,7 @@ export default function Home() {
       <div data-ato="3">
         <Reconhecimento />
         <Marca />
+        <Tipografia />
       </div>
       <div data-ato="4">
         <PapelDaIA />
