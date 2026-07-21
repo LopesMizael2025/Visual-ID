@@ -7,6 +7,7 @@ import Marca from "@/components/sections/Marca";
 import PapelDaIA from "@/components/sections/PapelDaIA";
 import IAComIdentidade from "@/components/ia/IAComIdentidade";
 import IAProvaVisual from "@/components/ia/IAProvaVisual";
+import IADicasFerramentas from "@/components/ia/IADicasFerramentas";
 import IARitualDeAprovacao from "@/components/ia/IARitualDeAprovacao";
 import Manifesto from "@/components/sections/Manifesto";
 import Encerramento from "@/components/sections/Encerramento";
@@ -33,6 +34,7 @@ export default function Home() {
       <div data-ato="5">
         <IAComIdentidade />
         <IAProvaVisual />
+        <IADicasFerramentas />
         <IARitualDeAprovacao />
       </div>
       <div data-ato="6">
